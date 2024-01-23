@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-const MonthSelector = () => {
+interface MonthSelectorProps {
+  onMonthChange: (newMonth: number) => void;
+  onYearChange: (newYear: number) => void;
+}
+
+const MonthSelector: React.FC<MonthSelectorProps> = ({
+  onMonthChange,
+  onYearChange,
+}) => {
   const currentDate = new Date();
 
   const [monthNumber, setMonthNumber] = useState(currentDate.getMonth());
@@ -13,6 +21,9 @@ const MonthSelector = () => {
     } else {
       setMonthNumber((prevMonth) => prevMonth + 1);
     }
+
+    onMonthChange(monthNumber + 1);
+    onYearChange(year);
   };
 
   const decrementMonth = () => {
@@ -22,6 +33,9 @@ const MonthSelector = () => {
     } else {
       setMonthNumber((prevMonth) => prevMonth - 1);
     }
+
+    onMonthChange(monthNumber - 1);
+    onYearChange(year);
   };
 
   const month = new Date(year, monthNumber);
