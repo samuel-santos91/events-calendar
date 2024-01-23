@@ -4,12 +4,14 @@ import { generateCalendar } from "../services/utils";
 import MonthSelector from "../components/MonthSelector";
 import WeekDays from "../components/WeekDays";
 import DayCell from "../components/DayCell";
+import Modal from "../components/Modal";
 
 const Calendar = () => {
   const currentDate = new Date();
 
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div className="flex flex-col items-center">
@@ -31,6 +33,7 @@ const Calendar = () => {
                     day={day}
                     month={selectedMonth}
                     year={selectedYear}
+                    onClick={() => setOpenModal(true)}
                   />
                 ))}
               </tr>
@@ -38,6 +41,7 @@ const Calendar = () => {
           )}
         </tbody>
       </table>
+      {openModal && <Modal backDropClick={setOpenModal}/>}
     </div>
   );
 };
