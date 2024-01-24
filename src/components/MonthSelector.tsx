@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useContext } from "react";
 
-interface MonthSelectorProps {
-  onMonthChange: (newMonth: number) => void;
-  onYearChange: (newYear: number) => void;
-}
+import {
+  CalendarContext,
+  CalendarContextProps,
+} from "../context/CalendarContextProvider";
 
-const MonthSelector: React.FC<MonthSelectorProps> = ({
-  onMonthChange,
-  onYearChange,
-}) => {
-  const currentDate = new Date();
-
-  const [monthNumber, setMonthNumber] = useState(currentDate.getMonth());
-  const [year, setYear] = useState(currentDate.getFullYear());
+const MonthSelector = () => {
+  const { monthNumber, setMonthNumber, year, setYear, monthName } = useContext(
+    CalendarContext
+  ) as CalendarContextProps;
 
   const incrementMonth = () => {
     if (monthNumber === 11) {
@@ -21,9 +17,6 @@ const MonthSelector: React.FC<MonthSelectorProps> = ({
     } else {
       setMonthNumber((prevMonth) => prevMonth + 1);
     }
-
-    onMonthChange(monthNumber + 1);
-    onYearChange(year);
   };
 
   const decrementMonth = () => {
@@ -33,14 +26,7 @@ const MonthSelector: React.FC<MonthSelectorProps> = ({
     } else {
       setMonthNumber((prevMonth) => prevMonth - 1);
     }
-
-    onMonthChange(monthNumber - 1);
-    onYearChange(year);
   };
-
-  const month = new Date(year, monthNumber);
-
-  const monthName = month.toLocaleString("default", { month: "long" });
 
   return (
     <div>

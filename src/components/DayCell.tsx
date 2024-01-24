@@ -1,17 +1,31 @@
+import { useContext } from "react";
+
+import {
+  CalendarContext,
+  CalendarContextProps,
+} from "../context/CalendarContextProvider";
 interface DayCellProps {
   day: number;
-  month: number;
-  year: number;
-  onClick: (event: React.MouseEvent<HTMLTableCellElement>) => void;
 }
 
-const DayCell: React.FC<DayCellProps> = ({ day, month, year, onClick }) => {
-  const firstDayOfMonth = new Date(year, month, 1);
+const DayCell: React.FC<DayCellProps> = ({ day }) => {
+  const { monthNumber, year, setOpenModal, setDay } = useContext(
+    CalendarContext
+  ) as CalendarContextProps;
+
+  const firstDayOfMonth = new Date(year, monthNumber, 1);
   const offset = firstDayOfMonth.getDay();
+
+  const handleClick = () => {
+    if (day > offset) {
+      setDay(day - offset);
+      setOpenModal(true);
+    }
+  };
 
   return (
     <td
-      onClick={day > offset ? onClick : undefined}
+      onClick={handleClick}
       className={day > offset ? "p-5 hover:bg-slate-500" : "p-5"}
     >
       {day <= offset ? "" : day - offset}
