@@ -1,6 +1,6 @@
 import api from "./axios";
 
-interface EventData {
+export interface EventData {
   id: number;
   title: string;
   description: string;
@@ -9,8 +9,12 @@ interface EventData {
 }
 
 export const getEventsByDate = async (date: Date): Promise<EventData[]> => {
+  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+
   try {
-    const response = await api.get(`/bydate/${date}`);
+    const response = await api.get(
+      `/byDate/${date.toISOString().substring(0, 10)}`
+    );
     return response.data;
   } catch (error) {
     throw error;

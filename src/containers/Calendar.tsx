@@ -9,7 +9,7 @@ import {
 import MonthSelector from "../components/MonthSelector";
 import WeekDays from "../components/WeekDays";
 import DayCell from "../components/DayCell";
-import Modal from "../components/Modal";
+import DayEvents from "../components/DayEvents";
 
 const Calendar = () => {
   const { monthNumber, year, openModal } = useContext(
@@ -33,7 +33,7 @@ const Calendar = () => {
           ))}
         </tbody>
       </table>
-      {openModal && <Modal />}
+      {openModal && <DayEvents />}
     </div>
   );
 };
