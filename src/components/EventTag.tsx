@@ -1,4 +1,9 @@
-import { deleteEvent } from "../services/event-service";
+import { useContext } from "react";
+
+import {
+  CalendarContext,
+  CalendarContextProps,
+} from "../context/CalendarContextProvider";
 
 interface EventTitleProp {
   eventId: number;
@@ -6,10 +11,13 @@ interface EventTitleProp {
 }
 
 const EventTag: React.FC<EventTitleProp> = ({ eventId, eventTitle }) => {
-  const deleteEventHandler = async () => {
-    await deleteEvent(eventId)
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
+  const { setEventId, setOpenConfirmDeleteModal } = useContext(
+    CalendarContext
+  ) as CalendarContextProps;
+
+  const deleteEventHandler = () => {
+    setEventId(eventId);
+    setOpenConfirmDeleteModal(true);
   };
 
   return (

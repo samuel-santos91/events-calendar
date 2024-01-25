@@ -6,11 +6,17 @@ import {
 } from "../context/CalendarContextProvider";
 
 import EventsList from "../containers/EventsList";
+import ConfirmDelete from "./ConfirmDelete";
 
 const DayEvents = () => {
-  const { day, year, setOpenModal, monthName, monthNumber } = useContext(
-    CalendarContext
-  ) as CalendarContextProps;
+  const {
+    day,
+    year,
+    setOpenModal,
+    monthName,
+    monthNumber,
+    openConfirmDeleteModal,
+  } = useContext(CalendarContext) as CalendarContextProps;
 
   const chosenDate = new Date(year, monthNumber, day);
 
@@ -24,6 +30,7 @@ const DayEvents = () => {
         {`${day} ${monthName} ${year}`}
         <EventsList date={chosenDate} />
       </article>
+      {openConfirmDeleteModal && <ConfirmDelete />}
     </section>
   );
 };
