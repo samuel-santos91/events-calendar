@@ -1,5 +1,7 @@
 import React, { createContext, ReactNode, useState } from "react";
 
+import { EventData } from "../services/event-service";
+
 export interface CalendarContextProps {
   day: number;
   setDay: React.Dispatch<React.SetStateAction<number>>;
@@ -10,6 +12,8 @@ export interface CalendarContextProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   monthName: string;
+  eventsData: EventData[];
+  setEventsData: React.Dispatch<React.SetStateAction<EventData[]>>;
 }
 
 export const CalendarContext = createContext<CalendarContextProps | null>(null);
@@ -27,6 +31,7 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
   const [monthNumber, setMonthNumber] = useState(currentDate.getMonth());
   const [year, setYear] = useState(currentDate.getFullYear());
   const [openModal, setOpenModal] = useState(false);
+  const [eventsData, setEventsData] = useState<EventData[]>([]);
 
   const month = new Date(year, monthNumber);
   const monthName = month.toLocaleString("default", { month: "long" });
@@ -41,6 +46,8 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
     openModal,
     setOpenModal,
     monthName,
+    eventsData,
+    setEventsData,
   };
 
   return (

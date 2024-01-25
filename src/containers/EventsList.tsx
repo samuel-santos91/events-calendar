@@ -1,22 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 
-import { getEventsByDate, EventData } from "../services/event-service";
+import {
+  CalendarContext,
+  CalendarContextProps,
+} from "../context/CalendarContextProvider";
+import { getEventsByDate } from "../services/event-service";
+import EventTag from "../components/EventTag";
 
 interface ChosenDateProp {
   date: Date;
 }
 
 const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
-  const [eventsData, setEventsData] = useState<EventData[]>([]);
+  const { eventsData, setEventsData } = useContext(
+    CalendarContext
+  ) as CalendarContextProps;
 
   useEffect(() => {
     const fetchData = async () => {
       await getEventsByDate(date)
         .then((res) => {
           setEventsData(res);
-          console.log(res)
+          console.log(res);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setEventsData([]);
+          console.log(e);
+        });
     };
 
     fetchData();
@@ -24,9 +34,17 @@ const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
 
   return (
     <section>
-      {eventsData.map((event) => (
-        <p key={event.id}>{event.title}</p>
-      ))}
+      {eventsData.length === 0 ? (
+        <h2 className="my-4">NO EVENTS</h2>
+      ) : (
+        eventsData.map((event) => (
+          <EventTag
+            key={event.id}
+            eventId={event.id}
+            eventTitle={event.title}
+          />
+        ))
+      )}
     </section>
   );
 };
