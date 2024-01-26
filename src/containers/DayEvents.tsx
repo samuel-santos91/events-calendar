@@ -5,8 +5,8 @@ import {
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
 
-import EventsList from "../containers/EventsList";
-import ConfirmDelete from "./ConfirmDelete";
+import EventsList from "./EventsList";
+import ConfirmDelete from "../components/ConfirmDelete";
 
 const DayEvents = () => {
   const {
@@ -29,6 +29,8 @@ const DayEvents = () => {
       <article className="w-80 h-96 p-4 rounded-md bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
         {`${day} ${monthName} ${year}`}
         <EventsList date={chosenDate} />
+
+        <button className="absolute bottom-0 m-2 p-2 bg-blue-400 right-0">Add Event</button>
       </article>
 
       {openConfirmDeleteModal && <ConfirmDelete />}

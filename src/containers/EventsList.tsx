@@ -12,12 +12,12 @@ interface ChosenDateProp {
 }
 
 const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
-  const { eventsData, setEventsData } = useContext(
+  const { eventsData, setEventsData, eventsPerDate } = useContext(
     CalendarContext
   ) as CalendarContextProps;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchEvents = async () => {
       await getEventsByDate(date)
         .then((res) => {
           setEventsData(res);
@@ -29,8 +29,8 @@ const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
         });
     };
 
-    fetchData();
-  }, []);
+    fetchEvents();
+  }, [eventsPerDate]);
 
   return (
     <section>

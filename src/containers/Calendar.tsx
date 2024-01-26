@@ -9,27 +9,37 @@ import {
 import MonthSelector from "../components/MonthSelector";
 import WeekDays from "../components/WeekDays";
 import DayCell from "../components/DayCell";
-import DayEvents from "../components/DayEvents";
+import DayEvents from "./DayEvents";
 import { EventData, getByMonthAndYear } from "../services/event-service";
 
 const Calendar = () => {
-  const { monthNumber, year, openModal, setEventsPerDate } = useContext(
-    CalendarContext
-  ) as CalendarContextProps;
+  const {
+    monthNumber,
+    year,
+    openModal,
+    setEventsPerDate,
+    openConfirmDeleteModal,
+  } = useContext(CalendarContext) as CalendarContextProps;
 
-  //Gets all events on that month
+  //Gets all events on that month AND updates when an event is deleted
   useEffect(() => {
     const filterEvents = async () => {
-      await getByMonthAndYear(year, monthNumber + 1)
+      await getByMonthAndYear(year, monthNumber)
         .then((res) => {
           const events = res.data.map((event: EventData) => event.date);
           setEventsPerDate(events);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          if (e.response && e.response.status === 404) {
+            setEventsPerDate(null);
+          } else {
+            console.error(e);
+          }
+        });
     };
 
     filterEvents();
-  }, [monthNumber]);
+  }, [monthNumber, openConfirmDeleteModal]);
 
   return (
     <div className="flex flex-col items-center">

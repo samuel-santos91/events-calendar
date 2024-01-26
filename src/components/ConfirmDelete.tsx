@@ -12,11 +12,13 @@ const ConfirmDelete = () => {
 
   const deleteEventHandler = async () => {
     if (eventId) {
-      await deleteEvent(eventId)
-        .then((res) => console.log(res))
-        .catch((e) => console.log(e));
+      try {
+        await deleteEvent(eventId);
+        setOpenConfirmDeleteModal(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    setOpenConfirmDeleteModal(false);
   };
 
   return (
