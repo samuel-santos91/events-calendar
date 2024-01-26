@@ -14,10 +14,12 @@ export interface CalendarContextProps {
   openConfirmDeleteModal: boolean;
   setOpenConfirmDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
   monthName: string;
-  eventsData: EventData[];
-  setEventsData: React.Dispatch<React.SetStateAction<EventData[]>>;
+  eventsData: EventData[] | null;
+  setEventsData: React.Dispatch<React.SetStateAction<EventData[] | null>>;
   eventId: number | null;
   setEventId: React.Dispatch<React.SetStateAction<number | null>>;
+  eventsPerDate: Date[] | null;
+  setEventsPerDate: React.Dispatch<React.SetStateAction<Date[] | null>>;
 }
 
 export const CalendarContext = createContext<CalendarContextProps | null>(null);
@@ -36,8 +38,9 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
   const [year, setYear] = useState(currentDate.getFullYear());
   const [openModal, setOpenModal] = useState(false);
   const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);
-  const [eventsData, setEventsData] = useState<EventData[]>([]);
+  const [eventsData, setEventsData] = useState<EventData[] | null>(null);
   const [eventId, setEventId] = useState<number | null>(null);
+  const [eventsPerDate, setEventsPerDate] = useState<Date[] | null>(null);
 
   const month = new Date(year, monthNumber);
   const monthName = month.toLocaleString("default", { month: "long" });
@@ -58,6 +61,8 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
     setEventsData,
     eventId,
     setEventId,
+    eventsPerDate,
+    setEventsPerDate,
   };
 
   return (

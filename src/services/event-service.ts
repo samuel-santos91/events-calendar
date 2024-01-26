@@ -8,6 +8,15 @@ export interface EventData {
   date: Date;
 }
 
+export const getByMonthAndYear = async (year: number, month: number) => {
+  try {
+    const response = await api.get(`/byMonthAndYear/${year}/${month}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getEventsByDate = async (date: Date): Promise<EventData[]> => {
   date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
 

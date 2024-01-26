@@ -30,6 +30,7 @@ const DayEvents = () => {
         {`${day} ${monthName} ${year}`}
         <EventsList date={chosenDate} />
       </article>
+
       {openConfirmDeleteModal && <ConfirmDelete />}
     </section>
   );

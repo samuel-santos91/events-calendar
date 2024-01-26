@@ -34,10 +34,10 @@ const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
 
   return (
     <section>
-      {eventsData.length === 0 ? (
+      {eventsData?.length === 0 ? (
         <h2 className="my-4">NO EVENTS</h2>
       ) : (
-        eventsData.map((event) => (
+        eventsData?.map((event) => (
           <EventTag
             key={event.id}
             eventId={event.id}
