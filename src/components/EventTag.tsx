@@ -11,13 +11,17 @@ interface EventTitleProp {
 }
 
 const EventTag: React.FC<EventTitleProp> = ({ eventId, eventTitle }) => {
-  const { setEventId, setOpenConfirmDeleteModal } = useContext(
-    CalendarContext
-  ) as CalendarContextProps;
+  const { setEventId, setOpenConfirmDeleteModal, setOpenEditEventModal } =
+    useContext(CalendarContext) as CalendarContextProps;
 
   const deleteEventHandler = () => {
     setEventId(eventId);
     setOpenConfirmDeleteModal(true);
+  };
+
+  const editEventHandler = () => {
+    setEventId(eventId);
+    setOpenEditEventModal(true);
   };
 
   return (
@@ -25,7 +29,12 @@ const EventTag: React.FC<EventTitleProp> = ({ eventId, eventTitle }) => {
       <h2>{eventTitle}</h2>
       <section>
         <div className="flex">
-          <button className="m-2 px-2 rounded-xl bg-green-500">E</button>
+          <button
+            onClick={editEventHandler}
+            className="m-2 px-2 rounded-xl bg-green-500"
+          >
+            E
+          </button>
           <button
             onClick={deleteEventHandler}
             className="m-2 px-2 rounded-xl bg-red-500"

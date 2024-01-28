@@ -1,13 +1,15 @@
-import { useForm } from "react-hook-form";
-import { schema } from "../services/yup-validation";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
+import {
+  SubmitHandler,
+  UseFormRegister,
+  UseFormHandleSubmit,
+  FieldErrors,
+} from "react-hook-form";
 
 import {
   CalendarContext,
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
-import { addEvent } from "../services/event-service";
 
 interface FormData {
   title: string;
@@ -15,29 +17,22 @@ interface FormData {
   time: string;
 }
 
-const AddEventForm = () => {
-  const { setOpenAddEventModal, year, monthNumber, day } = useContext(
+interface EventFormProps {
+  onSubmit: SubmitHandler<FormData>;
+  register: UseFormRegister<FormData>;
+  handleSubmit: UseFormHandleSubmit<FormData>;
+  errors: FieldErrors<FormData>;
+}
+
+const EventForm: React.FC<EventFormProps> = ({
+  onSubmit,
+  register,
+  handleSubmit,
+  errors,
+}) => {
+  const { setOpenAddEventModal, setOpenEditEventModal } = useContext(
     CalendarContext
   ) as CalendarContextProps;
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = async (data: FormData) => {
-    const date = new Date(Date.UTC(year, monthNumber, day));
-    const eventData = { ...data, date, id: null };
-
-    await addEvent(eventData)
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
-
-    setOpenAddEventModal(false);
-  };
 
   return (
     <section className="w-[30rem] h-[30rem] p-4 rounded-md bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 overflow-y-scroll">
@@ -101,7 +96,10 @@ const AddEventForm = () => {
             Save
           </button>
           <button
-            onClick={() => setOpenAddEventModal(false)}
+            onClick={() => {
+              setOpenEditEventModal(false);
+              setOpenAddEventModal(false);
+            }}
             className="m-2 p-3 w-28 rounded-md bg-slate-300"
           >
             Cancel
@@ -112,4 +110,4 @@ const AddEventForm = () => {
   );
 };
 
-export default AddEventForm;
+export default EventForm;

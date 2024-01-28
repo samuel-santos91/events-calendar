@@ -9,7 +9,7 @@ interface DayCellProps {
 }
 
 const DayCell: React.FC<DayCellProps> = ({ day }) => {
-  const { monthNumber, year, setOpenModal, setDay, eventsPerDate } = useContext(
+  const { monthNumber, year, setOpenEventListModal, setDay, eventsPerDate } = useContext(
     CalendarContext
   ) as CalendarContextProps;
 
@@ -23,7 +23,7 @@ const DayCell: React.FC<DayCellProps> = ({ day }) => {
   const handleClick = () => {
     if (day > offset) {
       setDay(day - offset);
-      setOpenModal(true);
+      setOpenEventListModal(true);
     }
   };
 
