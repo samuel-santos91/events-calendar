@@ -1,7 +1,7 @@
 import api from "./axios";
 
 export interface EventData {
-  id: number;
+  id: number | null;
   title: string;
   description: string;
   time: string;

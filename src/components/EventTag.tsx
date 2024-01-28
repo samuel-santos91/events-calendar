@@ -6,7 +6,7 @@ import {
 } from "../context/CalendarContextProvider";
 
 interface EventTitleProp {
-  eventId: number;
+  eventId: number | null;
   eventTitle: string;
 }
 

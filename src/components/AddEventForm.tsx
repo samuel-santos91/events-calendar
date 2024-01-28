@@ -7,6 +7,7 @@ import {
   CalendarContext,
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
+import { addEvent } from "../services/event-service";
 
 interface FormData {
   title: string;
@@ -27,10 +28,15 @@ const AddEventForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-    const currentCellDate = new Date(year, monthNumber, day);
-    const eventData = { ...data, currentCellDate };
-    console.log(eventData);
+  const onSubmit = async (data: FormData) => {
+    const date = new Date(Date.UTC(year, monthNumber, day));
+    const eventData = { ...data, date, id: null };
+
+    await addEvent(eventData)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
+
+    setOpenAddEventModal(false);
   };
 
   return (

@@ -19,6 +19,7 @@ const Calendar = () => {
     openModal,
     setEventsPerDate,
     openConfirmDeleteModal,
+    openAddEventModal,
   } = useContext(CalendarContext) as CalendarContextProps;
 
   //Gets all events on that month AND updates when an event is deleted
@@ -39,7 +40,7 @@ const Calendar = () => {
     };
 
     filterEvents();
-  }, [monthNumber, openConfirmDeleteModal]);
+  }, [monthNumber, openConfirmDeleteModal, openAddEventModal]);
 
   return (
     <div className="flex flex-col items-center">
