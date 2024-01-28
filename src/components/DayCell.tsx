@@ -9,9 +9,8 @@ interface DayCellProps {
 }
 
 const DayCell: React.FC<DayCellProps> = ({ day }) => {
-  const { monthNumber, year, setOpenEventListModal, setDay, eventsPerDate } = useContext(
-    CalendarContext
-  ) as CalendarContextProps;
+  const { monthNumber, year, setOpenEventListModal, setDay, eventsPerDate } =
+    useContext(CalendarContext) as CalendarContextProps;
 
   const firstDayOfMonth = new Date(year, monthNumber, 1);
   const offset = firstDayOfMonth.getDay();
@@ -37,13 +36,15 @@ const DayCell: React.FC<DayCellProps> = ({ day }) => {
       onClick={handleClick}
       className={
         day > offset
-          ? `p-5 ${
-              isEventDate ? "bg-red-200 hover:bg-red-500" : "hover:bg-slate-500"
+          ? `w-36 h-32 border-solid border-2 border-slate-500 ${
+              isEventDate ? "bg-red-200 hover:bg-red-300" : "hover:bg-slate-200"
             }`
-          : "p-5"
+          : ""
       }
     >
-      {day <= offset ? "" : day - offset}
+      <div className="relative">
+        <span className="absolute top-[-3.7rem] right-[.2rem]">{day <= offset ? "" : day - offset}</span>
+      </div>
     </td>
   );
 };

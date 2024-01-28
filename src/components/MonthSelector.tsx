@@ -29,16 +29,21 @@ const MonthSelector = () => {
   };
 
   return (
-    <div>
-      <p>{monthName}</p>
-      <p>{year}</p>
-      <button className="p-2 bg-slate-500" onClick={incrementMonth}>
-        +
-      </button>
-      <button className="p-2 bg-slate-200" onClick={decrementMonth}>
-        -
-      </button>
-    </div>
+    <section className="my-8 flex flex-col items-center">
+      <div className="flex items-center">
+        <p className="mx-2 font-bold text-2xl">{monthName}</p>
+        <p className="text-2xl">{year}</p>
+      </div>
+
+      <div>
+        <button className="mx-3 text-2xl" onClick={decrementMonth}>
+          &#8678;
+        </button>
+        <button className="text-2xl" onClick={incrementMonth}>
+          &#8680;
+        </button>
+      </div>
+    </section>
   );
 };
 

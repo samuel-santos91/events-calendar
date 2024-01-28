@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import { GrEdit } from "react-icons/gr";
+import { GoTrash } from "react-icons/go";
 
 import {
   CalendarContext,
@@ -25,21 +27,15 @@ const EventTag: React.FC<EventTitleProp> = ({ eventId, eventTitle }) => {
   };
 
   return (
-    <div className="flex justify-between items-center bg-blue-400 my-4 p-1 rounded-md">
+    <div className="flex justify-between items-center bg-blue-200 my-4 p-2 rounded-md">
       <h2>{eventTitle}</h2>
       <section>
         <div className="flex">
-          <button
-            onClick={editEventHandler}
-            className="m-2 px-2 rounded-xl bg-green-500"
-          >
-            E
+          <button onClick={editEventHandler}>
+            <GrEdit />
           </button>
-          <button
-            onClick={deleteEventHandler}
-            className="m-2 px-2 rounded-xl bg-red-500"
-          >
-            D
+          <button className="mx-4" onClick={deleteEventHandler}>
+            <GoTrash />
           </button>
         </div>
       </section>

@@ -4,7 +4,7 @@ const WeekDays = () => {
   return (
     <tr>
       {weekDaysArray.map((day) => (
-        <th key={day}>{day}</th>
+        <th className="text-slate-500" key={day}>{day}</th>
       ))}
     </tr>
   );

@@ -33,9 +33,9 @@ const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
   }, [eventsPerDate]);
 
   return (
-    <section>
+    <section className="relative">
       {eventsData?.length === 0 ? (
-        <h2 className="my-4">NO EVENTS</h2>
+        <h2 className="absolute top-[10rem] left-1/2 -translate-x-1/2 text-2xl text-slate-300">NO EVENTS</h2>
       ) : (
         eventsData?.map((event) => (
           <EventTag

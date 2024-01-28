@@ -49,7 +49,7 @@ const Calendar = () => {
   ]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center">
       <MonthSelector />
       <table className="mt-3">
         <thead>
