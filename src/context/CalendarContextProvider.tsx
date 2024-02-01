@@ -26,6 +26,12 @@ export interface CalendarContextProps {
   setEventId: React.Dispatch<React.SetStateAction<number | null>>;
   eventsPerDate: Date[] | null;
   setEventsPerDate: React.Dispatch<React.SetStateAction<Date[] | null>>;
+  event: EventData | null;
+  setEvent: React.Dispatch<React.SetStateAction<EventData | null>>;
+  eventHoverRef: React.RefObject<HTMLDivElement> | null;
+  setEventHoverRef: React.Dispatch<
+    React.SetStateAction<React.RefObject<HTMLDivElement> | null>
+  >;
 }
 
 export const CalendarContext = createContext<CalendarContextProps | null>(null);
@@ -50,6 +56,9 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
   const [eventsData, setEventsData] = useState<EventData[] | null>(null);
   const [eventId, setEventId] = useState<number | null>(null);
   const [eventsPerDate, setEventsPerDate] = useState<Date[] | null>(null);
+  const [event, setEvent] = useState<EventData | null>(null);
+  const [eventHoverRef, setEventHoverRef] =
+    useState<React.RefObject<HTMLDivElement> | null>(null);
 
   const month = new Date(year, monthNumber);
   const monthName = month.toLocaleString("default", { month: "long" });
@@ -78,6 +87,10 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
     setEventId,
     eventsPerDate,
     setEventsPerDate,
+    event,
+    setEvent,
+    eventHoverRef,
+    setEventHoverRef,
   };
 
   return (

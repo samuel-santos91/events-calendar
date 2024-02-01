@@ -29,7 +29,7 @@ const MonthSelector = () => {
   };
 
   return (
-    <section className="my-8 flex flex-col items-center">
+    <section className="mb-8 flex flex-col items-center">
       <div className="flex items-center">
         <p className="mx-2 font-bold text-2xl">{monthName}</p>
         <p className="text-2xl">{year}</p>

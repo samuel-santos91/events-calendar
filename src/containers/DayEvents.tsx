@@ -5,7 +5,6 @@ import {
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
 
-import Event from "../components/Event";
 import EventsList from "./EventsList";
 import ConfirmDelete from "../components/ConfirmDelete";
 import AddEvent from "./AddEvent";
@@ -19,7 +18,6 @@ const DayEvents = () => {
     setOpenEventListModal,
     monthNumber,
     openConfirmDeleteModal,
-    openEventModal,
     openAddEventModal,
     openEditEventModal,
     setOpenAddEventModal,
@@ -34,7 +32,7 @@ const DayEvents = () => {
         onClick={() => {
           setOpenEventListModal(false);
           setOpenAddEventModal(false);
-          setOpenEditEventModal(false);
+          setOpenEditEventModal(false); 
         }}
         className="absolute top-0 left-0 bg-black bg-opacity-20 backdrop-blur-sm w-full h-screen z-10"
       />
@@ -50,7 +48,6 @@ const DayEvents = () => {
         </button>
       </article>
 
-      {openEventModal && <Event />}
       {openAddEventModal && <AddEvent />}
       {openEditEventModal && <EditEvent />}
 

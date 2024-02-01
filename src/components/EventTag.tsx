@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { GrEdit } from "react-icons/gr";
 import { GoTrash } from "react-icons/go";
 
@@ -13,8 +13,15 @@ interface EventTitleProp {
 }
 
 const EventTag: React.FC<EventTitleProp> = ({ eventId, eventTitle }) => {
-  const { setEventId, setOpenConfirmDeleteModal, setOpenEditEventModal } =
-    useContext(CalendarContext) as CalendarContextProps;
+  const hoverRef = useRef(null);
+
+  const {
+    setEventId,
+    setOpenConfirmDeleteModal,
+    setOpenEditEventModal,
+    setOpenEventModal,
+    setEventHoverRef,
+  } = useContext(CalendarContext) as CalendarContextProps;
 
   const deleteEventHandler = () => {
     setEventId(eventId);
@@ -26,8 +33,19 @@ const EventTag: React.FC<EventTitleProp> = ({ eventId, eventTitle }) => {
     setOpenEditEventModal(true);
   };
 
+  const handleMouseEnter = () => {
+    setEventId(eventId);
+    setOpenEventModal(true);
+    setEventHoverRef(hoverRef);
+  };
+
   return (
-    <div className="flex justify-between items-center bg-blue-200 my-4 p-2 rounded-md">
+    <div
+      ref={hoverRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => setOpenEventModal(false)}
+      className="relative flex justify-between items-center bg-blue-200 my-4 p-2 rounded-md"
+    >
       <h2>{eventTitle}</h2>
       <section>
         <div className="flex">

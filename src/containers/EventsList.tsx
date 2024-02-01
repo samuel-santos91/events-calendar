@@ -5,6 +5,7 @@ import {
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
 import { getEventsByDate } from "../services/event-service";
+import Event from "../components/Event";
 import EventTag from "../components/EventTag";
 
 interface ChosenDateProp {
@@ -12,16 +13,14 @@ interface ChosenDateProp {
 }
 
 const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
-  const { eventsData, setEventsData, eventsPerDate } = useContext(
-    CalendarContext
-  ) as CalendarContextProps;
+  const { eventsData, setEventsData, eventsPerDate, openEventModal } =
+    useContext(CalendarContext) as CalendarContextProps;
 
   useEffect(() => {
     const fetchEvents = async () => {
       await getEventsByDate(date)
         .then((res) => {
           setEventsData(res);
-          console.log(res);
         })
         .catch((e) => {
           setEventsData([]);
@@ -35,7 +34,9 @@ const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
   return (
     <section className="relative">
       {eventsData?.length === 0 ? (
-        <h2 className="absolute top-[10rem] left-1/2 -translate-x-1/2 text-2xl text-slate-300">NO EVENTS</h2>
+        <h2 className="absolute top-[10rem] left-1/2 -translate-x-1/2 text-2xl text-slate-300">
+          NO EVENTS
+        </h2>
       ) : (
         eventsData?.map((event) => (
           <EventTag
@@ -45,6 +46,7 @@ const EventsList: React.FC<ChosenDateProp> = ({ date }) => {
           />
         ))
       )}
+      {openEventModal && <Event />}
     </section>
   );
 };
