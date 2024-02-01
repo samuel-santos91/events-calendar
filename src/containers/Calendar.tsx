@@ -59,7 +59,7 @@ const Calendar = () => {
           {generateCalendar(year, monthNumber).map((week, weekIndex) => (
             <tr key={weekIndex}>
               {week.map((day, dayIndex) => (
-                <DayCell key={dayIndex} day={day} />
+                <DayCell key={dayIndex} cellDay={day} />
               ))}
             </tr>
           ))}

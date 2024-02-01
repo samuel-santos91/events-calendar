@@ -5,23 +5,29 @@ import {
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
 interface DayCellProps {
-  day: number;
+  cellDay: number;
 }
 
-const DayCell: React.FC<DayCellProps> = ({ day }) => {
-  const { monthNumber, year, setOpenEventListModal, setDay, eventsPerDate } =
-    useContext(CalendarContext) as CalendarContextProps;
+const DayCell: React.FC<DayCellProps> = ({ cellDay }) => {
+  const {
+    day,
+    monthNumber,
+    year,
+    setOpenEventListModal,
+    setDay,
+    eventsPerDate,
+  } = useContext(CalendarContext) as CalendarContextProps;
 
   const firstDayOfMonth = new Date(year, monthNumber, 1);
   const offset = firstDayOfMonth.getDay();
 
-  const currentCellDate = new Date(year, monthNumber, day - offset + 1)
+  const currentCellDate = new Date(year, monthNumber, cellDay - offset + 1)
     .toISOString()
     .split("T")[0];
 
   const handleClick = () => {
-    if (day > offset) {
-      setDay(day - offset);
+    if (cellDay > offset) {
+      setDay(cellDay - offset);
       setOpenEventListModal(true);
     }
   };
@@ -35,7 +41,7 @@ const DayCell: React.FC<DayCellProps> = ({ day }) => {
     <td
       onClick={handleClick}
       className={
-        day > offset
+        cellDay > offset
           ? `w-36 h-20 md:h-32 sm:h-24 border-solid border-2 border-slate-500 ${
               isEventDate ? "bg-red-200 hover:bg-red-300" : "hover:bg-slate-200"
             }`
@@ -43,7 +49,15 @@ const DayCell: React.FC<DayCellProps> = ({ day }) => {
       }
     >
       <div className="relative">
-        <span className="absolute top-[-2.3rem] md:top-[-4rem] sm:top-[-3rem] right-[.2rem]">{day <= offset ? "" : day - offset}</span>
+        <span
+          className={
+            day !== cellDay - offset
+              ? "absolute top-[-2.3rem] md:top-[-4rem] sm:top-[-3rem] right-[.2rem]"
+              : "absolute top-[-2.3rem] md:top-[-3.8rem] sm:top-[-2.8rem] right-[.2rem] bg-red-600 text-white px-[.5rem] py-[.1rem] rounded-full"
+          }
+        >
+          {cellDay <= offset ? "" : cellDay - offset}
+        </span>
       </div>
     </td>
   );
