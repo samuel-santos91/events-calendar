@@ -10,6 +10,7 @@ import {
   CalendarContext,
   CalendarContextProps,
 } from "../context/CalendarContextProvider";
+import DateHeader from "./DateHeader";
 
 interface FormData {
   title: string;
@@ -30,14 +31,14 @@ const EventForm: React.FC<EventFormProps> = ({
   handleSubmit,
   errors,
 }) => {
-  const { setOpenAddEventModal, setOpenEditEventModal } = useContext(
-    CalendarContext
-  ) as CalendarContextProps;
+  const { setOpenAddEventModal, setOpenEditEventModal} =
+    useContext(CalendarContext) as CalendarContextProps;
 
   return (
-    <section className="w-[27rem] h-auto p-4 rounded-md bg-white fixed top-[26rem] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 overflow-y-scroll">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center mb-3">
+    <section className="w-3/4 sm:w-[27rem] h-[30rem] p-4 rounded-md bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 overflow-y-scroll">
+      <DateHeader />
+      <form className="mt-3" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col items-start mb-3">
           <label className="font-bold text-sm" htmlFor="title">
             Title
           </label>
@@ -47,14 +48,14 @@ const EventForm: React.FC<EventFormProps> = ({
             </p>
           )}
           <input
-            className="h-9 w-72 border-2 border-black rounded-md indent-2"
+            className="h-9 w-full border-2 border-black rounded-md indent-2"
             type="text"
             id="title"
             {...register("title")}
           />
         </div>
 
-        <div className="flex flex-col items-center mb-3">
+        <div className="flex flex-col items-start mb-3">
           <label className="font-bold text-sm" htmlFor="description">
             Description
           </label>
@@ -64,14 +65,14 @@ const EventForm: React.FC<EventFormProps> = ({
             </p>
           )}
           <textarea
-            className="h-32 w-72 border-2 border-black rounded-md indent-2"
+            className="h-32 w-full border-2 border-black rounded-md indent-2"
             id="description"
             maxLength={100}
             {...register("description")}
           />
         </div>
 
-        <div className="flex flex-col items-center mb-3">
+        <div className="flex flex-col items-start mb-3">
           <label className="font-bold text-sm" htmlFor="time">
             Time
           </label>
@@ -88,7 +89,7 @@ const EventForm: React.FC<EventFormProps> = ({
           />
         </div>
 
-        <div className="flex justify-center my-6">
+        <div className="flex justify-center">
           <button
             type="submit"
             className="m-2 p-3 w-28 rounded-md bg-blue-700 text-white"

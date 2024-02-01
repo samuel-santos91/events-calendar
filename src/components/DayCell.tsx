@@ -36,14 +36,14 @@ const DayCell: React.FC<DayCellProps> = ({ day }) => {
       onClick={handleClick}
       className={
         day > offset
-          ? `w-36 h-32 border-solid border-2 border-slate-500 ${
+          ? `w-36 h-20 md:h-32 sm:h-24 border-solid border-2 border-slate-500 ${
               isEventDate ? "bg-red-200 hover:bg-red-300" : "hover:bg-slate-200"
             }`
           : ""
       }
     >
       <div className="relative">
-        <span className="absolute top-[-3.7rem] right-[.2rem]">{day <= offset ? "" : day - offset}</span>
+        <span className="absolute top-[-2.3rem] md:top-[-4rem] sm:top-[-3rem] right-[.2rem]">{day <= offset ? "" : day - offset}</span>
       </div>
     </td>
   );

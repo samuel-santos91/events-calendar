@@ -9,6 +9,8 @@ export interface CalendarContextProps {
   setMonthNumber: React.Dispatch<React.SetStateAction<number>>;
   year: number;
   setYear: React.Dispatch<React.SetStateAction<number>>;
+  openEventModal: boolean;
+  setOpenEventModal: React.Dispatch<React.SetStateAction<boolean>>;
   openEventListModal: boolean;
   setOpenEventListModal: React.Dispatch<React.SetStateAction<boolean>>;
   openConfirmDeleteModal: boolean;
@@ -40,6 +42,7 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
   const [day, setDay] = useState(currentDate.getDate());
   const [monthNumber, setMonthNumber] = useState(currentDate.getMonth());
   const [year, setYear] = useState(currentDate.getFullYear());
+  const [openEventModal, setOpenEventModal] = useState(false);
   const [openEventListModal, setOpenEventListModal] = useState(false);
   const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);
   const [openAddEventModal, setOpenAddEventModal] = useState(false);
@@ -58,6 +61,8 @@ const CalendarContextProvider: React.FC<CalendarContextProviderProps> = ({
     setMonthNumber,
     year,
     setYear,
+    openEventModal,
+    setOpenEventModal,
     openEventListModal,
     setOpenEventListModal,
     openConfirmDeleteModal,
