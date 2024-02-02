@@ -9,14 +9,8 @@ interface DayCellProps {
 }
 
 const DayCell: React.FC<DayCellProps> = ({ cellDay }) => {
-  const {
-    day,
-    monthNumber,
-    year,
-    setOpenEventListModal,
-    setDay,
-    eventsPerDate,
-  } = useContext(CalendarContext) as CalendarContextProps;
+  const { monthNumber, year, setOpenEventListModal, setDay, eventsPerDate } =
+    useContext(CalendarContext) as CalendarContextProps;
 
   const firstDayOfMonth = new Date(year, monthNumber, 1);
   const offset = firstDayOfMonth.getDay();
@@ -37,6 +31,8 @@ const DayCell: React.FC<DayCellProps> = ({ cellDay }) => {
       new Date(eventDate).toISOString().split("T")[0] === currentCellDate
   );
 
+  const date = new Date();
+
   return (
     <td
       onClick={handleClick}
@@ -51,9 +47,10 @@ const DayCell: React.FC<DayCellProps> = ({ cellDay }) => {
       <div className="relative">
         <span
           className={
-            day !== cellDay - offset
-              ? "absolute top-[-2.3rem] md:top-[-4rem] sm:top-[-3rem] right-[.2rem]"
-              : "absolute top-[-2.3rem] md:top-[-3.8rem] sm:top-[-2.8rem] right-[.2rem] bg-red-600 text-white px-[.5rem] py-[.1rem] rounded-full"
+            date.getDate() === cellDay - offset &&
+            date.getMonth() === monthNumber
+              ? "absolute top-[-2.3rem] md:top-[-3.8rem] sm:top-[-2.8rem] right-[.2rem] bg-red-600 text-white px-[.5rem] py-[.1rem] rounded-full"
+              : "absolute top-[-2.3rem] md:top-[-4rem] sm:top-[-3rem] right-[.2rem]"
           }
         >
           {cellDay <= offset ? "" : cellDay - offset}
